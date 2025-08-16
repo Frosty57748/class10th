@@ -1,0 +1,177 @@
+:root{
+  --bg1: #e9f6ff;
+  --bg2: #cfe9fb;
+  --card-bg: rgba(255,255,255,0.85);
+  --card-border: #bfe0f6;
+  --text: #0b4f6c;
+  --muted: #467a92;
+  --accent: #2d99d3;
+  --accent-dark: #217db3;
+  --shadow: 0 8px 24px rgba(23, 90, 128, 0.12);
+  --radius: 10px;
+
+  /* Icy chart palette */
+  --c1:#3b9ad6; --c2:#7ec8e3; --c3:#9fd6ea; --c4:#bfe4f1;
+  --c5:#83bcd9; --c6:#58a7d0; --c7:#2b83b7; --c8:#1f6d9c;
+
+  --green:#43b37a; --red:#e06a6a;
+}
+
+/* Background and layout */
+body{
+  margin:0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  color: var(--text);
+  background: linear-gradient(180deg, var(--bg1), var(--bg2));
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.page{
+  position: relative;
+  z-index: 1; /* above snow layer */
+  padding: 28px 18px 60px;
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+h1{
+  text-align: center;
+  margin: 0 0 16px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+.subtitle{
+  text-align: center;
+  margin-bottom: 18px;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+/* Collapsible cards */
+details{
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  margin: 12px 0;
+  padding: 10px 12px;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(6px);
+}
+
+summary{
+  list-style: none;
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+summary::-webkit-details-marker{ display:none; }
+
+.summary-icon{
+  width: 28px;
+  height: 28px;
+  display: inline-grid;
+  place-items: center;
+  background: #e4f3fb;
+  color: var(--accent);
+  border-radius: 8px;
+  border: 1px solid var(--card-border);
+}
+
+/* Chapters list */
+ul{
+  list-style: none;
+  padding-left: 4px;
+  margin: 10px 0 0;
+}
+li{ margin: 6px 0; }
+label{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+.chapter-checkbox{
+  accent-color: var(--accent);
+  transform: translateY(1px);
+}
+
+/* Controls and chart cards */
+.controls{
+  display: flex;
+  justify-content: center;
+  margin: 22px 0 8px;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+#toggleChart{
+  padding: 10px 18px;
+  font-size: 0.98rem;
+  cursor: pointer;
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  background: var(--accent);
+  color: #fff;
+  box-shadow: var(--shadow);
+  transition: background .2s ease, transform .05s ease;
+}
+#toggleChart:hover{ background: var(--accent-dark); }
+#toggleChart:active{ transform: translateY(1px); }
+
+.chart-card{
+  width: min(620px, 92vw);
+  margin: 16px auto 0;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  padding: 16px;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(6px);
+}
+
+/* Snow layer */
+.snow-layer{
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+.snowflake{
+  position: absolute;
+  top: -10px;
+  background: radial-gradient(circle, #fff 0 60%, rgba(255,255,255,0.75) 61% 100%);
+  border-radius: 50%;
+  opacity: var(--op, 0.8);
+  width: var(--size, 4px);
+  height: var(--size, 4px);
+  filter: drop-shadow(0 2px 2px rgba(0,0,0,0.06));
+  animation: fall var(--dur, 12s) linear var(--delay, 0s) infinite;
+  transform: translateY(-10vh);
+}
+
+@keyframes fall{
+  0%   { transform: translateY(-10vh) translateX(0); }
+  100% { transform: translateY(110vh) translateX(var(--drift, 30px)); }
+}
+#searchBox {
+  display: block;
+  margin: 0 auto 18px;
+  padding: 10px 14px;
+  width: min(320px, 90%);
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  font-size: 0.95rem;
+  box-shadow: var(--shadow);
+}
+
+.counter {
+  font-weight: normal;
+  font-size: 0.88rem;
+  color: var(--muted);
+}
