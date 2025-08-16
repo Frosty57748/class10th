@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Class 10 Chapter Tracker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f6f8;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+    }
+    .subject-card {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      margin: 20px auto;
+      padding: 20px;
+      max-width: 600px;
+    }
+    .subject-card h2 {
+      margin-top: 0;
+      color: #34495e;
+    }
+    .chapter {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid #eee;
+    }
+    .chapter:last-child {
+      border-bottom: none;
+    }
+    .chapter input[type="checkbox"] {
+      transform: scale(1.2);
+    }
+    .progress-bar {
+      height: 10px;
+      background: #ddd;
+      border-radius: 5px;
+      overflow: hidden;
+      margin-top: 10px;
+    }
+    .progress-fill {
+      height: 100%;
+      background: #27ae60;
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+  </style>
+</head>
+<body>
+  <h1>📘 Class 10 Chapter Tracker</h1>
+
+  <div class="subject-card" id="english-reader">
+    <h2>English Reader – First Flight</h2>
+    <div class="chapter"><span>A Letter to God</span><input type="checkbox"></div>
+    <div class="chapter"><span>Nelson Mandela</span><input type="checkbox"></div>
+    <div class="chapter"><span>Two Stories About Flying</span><input type="checkbox"></div>
+    <div class="progress-bar"><div class="progress-fill"></div></div>
+  </div>
+
+  <div class="subject-card" id="science">
+    <h2>Science</h2>
+    <div class="chapter"><span>Chemical Reactions and Equations</span><input type="checkbox"></div>
+    <div class="chapter"><span>Acids, Bases and Salts</span><input type="checkbox"></div>
+    <div class="chapter"><span>Metals and Non-metals</span><input type="checkbox"></div>
+    <div class="progress-bar"><div class="progress-fill"></div></div>
+  </div>
+
+  <!-- Add more subject cards here -->
+
+  <script>
+    document.querySelectorAll('.subject-card').forEach(card => {
+      const checkboxes = card.querySelectorAll('input[type="checkbox"]');
+      const progressFill = card.querySelector('.progress-fill');
+
+      checkboxes.forEach((cb, i) => {
+        const key = `${card.id}-chapter-${i}`;
+        cb.checked = localStorage.getItem(key) === 'true';
+
+        cb.addEventListener('change', () => {
+          localStorage.setItem(key, cb.checked);
+          updateProgress();
+        });
+      });
+
+      function updateProgress() {
+        const total = checkboxes.length;
+        const done = Array.from(checkboxes).filter(cb => cb.checked).length;
+        const percent = (done / total) * 100;
+        progressFill.style.width = `${percent}%`;
+      }
+
+      updateProgress();
+    });
+  </script>
+</body>
+</html>
